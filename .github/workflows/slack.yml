@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Sample CI Workflow
 
 on:
   push:
@@ -10,28 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run build
-        run: |
-          echo "🚀 Running build..."
-          # Replace with your actual build command
-          npm install
-          npm run build
-
-      - name: Notify Slack
-        uses: actions/slack@v1
+      # Step 2: Set up Node.js (example project, you can change to Python/Java etc.)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-        if: always()   # Runs even if build fails
-        run: |
-          if [ "${{ job.status }}" == "success" ]; then
-            MESSAGE="✅ Build Passed on $GITHUB_REF"
-          else
-            MESSAGE="❌ Build Failed on $GITHUB_REF"
-          fi
-          curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"${MESSAGE}\"}" \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
-          channel: 'aws-updates'
+          node-version: '18'
 
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run build
+      - name: Build project
+        run: npm run build
+
+      # Step 5: Run tests
+      - name: Run tests
+        run: npm test
