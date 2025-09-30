@@ -50,7 +50,7 @@ jobs:
 
             {
 
-              "channel": "#alerts",
+              "channel": "#aws-updates",
 
               "text": ":white_check_mark: Workflow succeeded in repository *${{ github.repository }}* on branch *${{ github.ref_name }}*!",
 
@@ -94,7 +94,7 @@ jobs:
 
             {
 
-              "channel": "#alerts",
+              "channel": "#aws-updates",
 
               "text": ":x: Workflow failed in repository *${{ github.repository }}* on branch *${{ github.ref_name }}*!",
 
