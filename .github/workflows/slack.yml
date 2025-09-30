@@ -32,20 +32,6 @@ jobs:
 
  
 
-      # Step 2: Run a sample command (replace with your actual workflow steps)
-
-      - name: Run Build or Tests
-
-        run: |
-
-          echo "Running build..."
-
-          # Simulate a failure for testing (remove this line in production)
-
-          exit 1
-
- 
-
       # Step 3: Send Slack Alert on Success
 
       - name: Send Slack Alert on Success
