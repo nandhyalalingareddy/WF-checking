@@ -95,6 +95,7 @@ jobs:
             {
 
               "channel": "#aws-updates",
+              if: always()
 
               "text": ":x: Workflow failed in repository *${{ github.repository }}* on branch *${{ github.ref_name }}*!",
 
