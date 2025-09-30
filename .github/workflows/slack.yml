@@ -13,7 +13,7 @@ jobs:
     steps:
       # Step 1: Checkout the repository
       - name: Checkout Code
-        uses: actions/checkout@
+        uses: actions/checkout@v4
 
       # Step 2: Send Slack Alert on Success
       - name: Send Slack Alert on Success
@@ -21,7 +21,7 @@ jobs:
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          token: ${{ secrets.SLACK_BOT_TOKE }}
           payload: |
             {
               "channel": "#aws-updates",
