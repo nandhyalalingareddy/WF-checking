@@ -1,120 +1,60 @@
 name: Slack Alert for Workflow Status
 
- 
-
 on:
-
   push:
-
     branches:
-
       - main
 
- 
-
 jobs:
-
   run-workflow:
-
     name: Run Workflow and Send Slack Alert
-
     runs-on: ubuntu-latest
 
- 
-
     steps:
-
       # Step 1: Checkout the repository
-
       - name: Checkout Code
+        uses: actions/checkout@
 
-        uses: actions/che
-
- 
-
-      # Step 3: Send Slack Alert on Success
-
+      # Step 2: Send Slack Alert on Success
       - name: Send Slack Alert on Success
-
         if: ${{ success() }}
-
         uses: slackapi/slack-github-action@v2.1.1
-
         with:
-
           method: chat.postMessage
-
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-
           payload: |
-
             {
-
               "channel": "#aws-updates",
-
               "text": ":white_check_mark: Workflow succeeded in repository *${{ github.repository }}* on branch *${{ github.ref_name }}*!",
-
               "attachments": [
-
                 {
-
                   "color": "36a64f",
-
                   "fields": [
-
                     { "title": "Triggered by", "value": "${{ github.actor }}", "short": true },
-
                     { "title": "Workflow Run", "value": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>", "short": true }
-
                   ]
-
                 }
-
               ]
-
             }
 
- 
-
-      # Step 4: Send Slack Alert on Failure
-
+      # Step 3: Send Slack Alert on Failure
       - name: Send Slack Alert on Failure
-
         if: ${{ failure() }}
-
         uses: slackapi/slack-github-action@v2.1.1
-
         with:
-
           method: chat.postMessage
-
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-
           payload: |
-
             {
-
               "channel": "#aws-updates",
-              if: always()
-
               "text": ":x: Workflow failed in repository *${{ github.repository }}* on branch *${{ github.ref_name }}*!",
-
               "attachments": [
-
                 {
-
                   "color": "ff0000",
-
                   "fields": [
-
                     { "title": "Triggered by", "value": "${{ github.actor }}", "short": true },
-
                     { "title": "Workflow Run", "value": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>", "short": true }
-
                   ]
-
                 }
-
               ]
-
             }
