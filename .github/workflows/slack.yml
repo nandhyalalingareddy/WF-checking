@@ -9,6 +9,7 @@ jobs:
   run-workflow:
     name: Run Workflow and Send Slack Alert
     runs-on: ubuntu-latest
+    if: always()
 
     steps:
       - name: Checkout Code
@@ -17,7 +18,6 @@ jobs:
       # Set Slack vars based on job status
       - name: Set Slack Message
         id: slack_vars
-        if: ${{ always() }}
         run: |
           if [ "${{ job.status }}" == "success" ]; then
             echo "status_icon=:white_check_mark:" >> $GITHUB_OUTPUT
@@ -29,7 +29,6 @@ jobs:
 
       # Send Slack Alert
       - name: Send Slack Alert
-        if: ${{ always() }}
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
